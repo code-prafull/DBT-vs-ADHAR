@@ -1,4 +1,58 @@
 @import "tailwindcss";
+
 body{
   background: #283031;
+}
+
+/* Custom animations for ChatWidget */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+/* Smooth scrolling for mobile */
+@supports (-webkit-overflow-scrolling: touch) {
+  .chatwidget-scroll {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+}
+
+/* Mobile input zoom prevention */
+input[type="text"] {
+  font-size: 16px !important;
+}
+
+@media (max-width: 640px) {
+  input[type="text"] {
+    font-size: 16px !important;
+  }
+}
+
+/* Enhanced scrollbar styling */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #a855f7;
+  border-radius: 2px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: #9333ea;
 }

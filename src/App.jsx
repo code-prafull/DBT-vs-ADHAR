@@ -29,6 +29,8 @@ export default function App() {
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/about" element={<About />} />
             <Route path="/chatbot" element={<Chatbot />} />
+            {/* Catch-all route for 404 errors - redirect to Dashboard */}
+            <Route path="*" element={<Dashboard />} />
           </Routes>
         </div>
 

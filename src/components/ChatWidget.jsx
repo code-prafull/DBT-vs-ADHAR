@@ -174,41 +174,63 @@ const ChatWidget = () => {
       {/* Floating Chatbot Icon */}
       <button
         onClick={toggleChat}
-        className="fixed bottom-5 left-5 w-16 h-16 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-full shadow-2xl flex items-center justify-center transition-transform duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-purple-300 animate-[pulse_3s_ease-in-out_infinite] text-white font-bold text-xl"
+        className="fixed bottom-4 left-4 sm:bottom-5 sm:left-5 w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 focus:outline-none focus:ring-4 focus:ring-purple-300 animate-[pulse_3s_ease-in-out_infinite] text-white font-bold text-xl sm:text-2xl border-2 border-white/20"
         aria-label="Open Chatbot"
+        style={{ touchAction: 'manipulation' }}
       >
-        🤖
+        {isOpen ? '✕' : '🤖'}
       </button>
 
       {/* Chatbot Window */}
       {isOpen && (
-        <div className="fixed bottom-5 left-24 w-[450px] h-[600px] bg-white rounded-xl shadow-2xl border border-gray-200 flex flex-col transition-all duration-300 ease-in-out">
+        <>
+          {/* Mobile Backdrop */}
+          <div 
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm sm:hidden z-40 transition-opacity duration-300"
+            onClick={toggleChat}
+          />
+          
+          <div className="fixed bottom-0 left-0 right-0 top-0 sm:bottom-5 sm:left-20 sm:right-auto sm:top-auto sm:w-[450px] sm:h-[600px] lg:w-[500px] lg:h-[650px] w-full h-full sm:h-auto bg-white rounded-t-3xl sm:rounded-xl shadow-2xl border-t-2 border-purple-200 sm:border border-gray-200 flex flex-col transition-all duration-500 ease-out transform translate-y-0 sm:translate-y-0 z-50 overflow-hidden">
+          {/* Mobile Handle Bar */}
+          <div className="flex justify-center py-2 sm:hidden bg-gradient-to-r from-purple-600 to-indigo-600">
+            <div className="w-10 h-1 bg-white/50 rounded-full"></div>
+          </div>
+          
           {/* Header */}
-          <div className="flex items-center justify-between p-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-t-xl">
-            <div className="flex items-center gap-2">
-              <div className={`w-2 h-2 rounded-full animate-pulse ${
-                connectionStatus === 'connected' ? 'bg-green-400' :
-                connectionStatus === 'error' ? 'bg-red-400' : 'bg-yellow-400'
-              }`}></div>
-              <h2 className="text-lg font-semibold">{t('ai_assistant')}</h2>
+          <div className="flex items-center justify-between p-4 sm:p-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-none sm:rounded-t-xl relative">
+            <div className="flex items-center gap-3">
+              <div className="relative">
+                <div className={`w-3 h-3 rounded-full animate-pulse ${
+                  connectionStatus === 'connected' ? 'bg-green-400' :
+                  connectionStatus === 'error' ? 'bg-red-400' : 'bg-yellow-400'
+                }`}></div>
+                <div className={`absolute inset-0 w-3 h-3 rounded-full animate-ping opacity-75 ${
+                  connectionStatus === 'connected' ? 'bg-green-400' :
+                  connectionStatus === 'error' ? 'bg-red-400' : 'bg-yellow-400'
+                }`}></div>
+              </div>
+              <div>
+                <h2 className="text-lg sm:text-xl font-bold">{t('ai_assistant')}</h2>
+                <p className="text-xs text-purple-100 opacity-90">DBT & Banking Expert</p>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1">
               <button
                 onClick={clearChat}
-                className="p-1 hover:bg-purple-700 rounded-full transition"
+                className="p-2 hover:bg-purple-700 active:bg-purple-800 rounded-full transition-all duration-200 touch-manipulation"
                 title={t('clear_chat')}
                 aria-label="Clear Chat"
               >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                 </svg>
               </button>
               <button
                 onClick={toggleChat}
-                className="p-1 hover:bg-purple-700 rounded-full transition"
+                className="p-2 hover:bg-purple-700 active:bg-purple-800 rounded-full transition-all duration-200 touch-manipulation"
                 aria-label="Close Chatbot"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
@@ -216,12 +238,12 @@ const ChatWidget = () => {
           </div>
 
           {/* Messages */}
-          <div className="flex-1 px-4 py-3 space-y-4 overflow-y-auto bg-gray-50 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
+          <div className="flex-1 px-4 sm:px-4 py-4 sm:py-3 space-y-4 sm:space-y-4 overflow-y-auto bg-gradient-to-b from-gray-50 to-gray-100 scrollbar-thin scrollbar-thumb-purple-300 scrollbar-track-gray-100 overscroll-behavior-contain" style={{ WebkitOverflowScrolling: 'touch' }}>
             {messages.map((msg, index) => (
               msg.from === 'bot' ? (
-                <div key={index} className="flex items-start gap-3">
-                  <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full flex items-center justify-center font-bold text-xs">AI</div>
-                  <div className="p-3 bg-blue-50 rounded-lg max-w-[80%] text-sm text-gray-800">
+                <div key={index} className="flex items-start gap-3 animate-fade-in">
+                  <div className="w-8 h-8 sm:w-8 sm:h-8 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full flex items-center justify-center font-bold text-xs shadow-lg ring-2 ring-white">AI</div>
+                  <div className="p-3 sm:p-3 bg-white rounded-2xl rounded-tl-md max-w-[85%] sm:max-w-[80%] text-sm sm:text-sm text-gray-800 shadow-md border border-blue-100">
                     <div className="whitespace-pre-wrap">{msg.text}</div>
                     {msg.timestamp && (
                       <div className="text-xs text-gray-500 mt-1">{msg.timestamp}</div>
@@ -229,8 +251,8 @@ const ChatWidget = () => {
                   </div>
                 </div>
               ) : (
-                <div key={index} className="flex justify-end">
-                  <div className="p-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg max-w-[80%] text-sm">
+                <div key={index} className="flex justify-end animate-fade-in">
+                  <div className="p-3 sm:p-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-2xl rounded-tr-md max-w-[85%] sm:max-w-[80%] text-sm sm:text-sm shadow-md">
                     <div>{msg.text}</div>
                     {msg.timestamp && (
                       <div className="text-xs text-purple-100 mt-1">{msg.timestamp}</div>
@@ -241,15 +263,15 @@ const ChatWidget = () => {
             ))}
             {loading && (
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full flex items-center justify-center font-bold text-xs">AI</div>
-                <div className="p-3 bg-gray-100 rounded-lg text-sm text-gray-600">
-                  <div className="flex items-center gap-2">
+                <div className="w-8 h-8 sm:w-8 sm:h-8 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full flex items-center justify-center font-bold text-xs shadow-lg ring-2 ring-white">AI</div>
+                <div className="p-3 sm:p-3 bg-white rounded-2xl rounded-tl-md text-sm sm:text-sm text-gray-600 shadow-md border border-gray-200">
+                  <div className="flex items-center gap-3">
                     <div className="flex space-x-1">
-                      <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
-                      <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                      <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                      <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce"></div>
+                      <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                      <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
                     </div>
-                    <span>{t('typing')}</span>
+                    <span className="text-purple-600 font-medium">{t('typing')}</span>
                   </div>
                 </div>
               </div>
@@ -258,12 +280,12 @@ const ChatWidget = () => {
           </div>
 
           {/* Input */}
-          <div className="p-3 border-t bg-white">
+          <div className="p-4 sm:p-4 border-t-2 border-purple-100 bg-white relative">
             {/* Quick Suggestions - only show when no conversation */}
             {messages.length === 1 && (
-              <div className="mb-3">
-                <p className="text-xs text-gray-500 mb-2">Quick questions:</p>
-                <div className="flex flex-wrap gap-1">
+              <div className="mb-3 sm:mb-3">
+                <p className="text-xs text-gray-500 mb-2 font-medium">Quick questions:</p>
+                <div className="flex flex-wrap gap-2">
                   {[
                     "How to check DBT status?",
                     "Aadhaar linking help",
@@ -273,7 +295,7 @@ const ChatWidget = () => {
                     <button
                       key={idx}
                       onClick={() => setInput(suggestion)}
-                      className="text-xs bg-blue-50 text-blue-600 px-2 py-1 rounded-full hover:bg-blue-100 transition"
+                      className="text-xs bg-purple-50 text-purple-700 px-3 py-2 rounded-full hover:bg-purple-100 active:bg-purple-200 transition-all duration-200 border border-purple-200 font-medium touch-manipulation"
                     >
                       {suggestion}
                     </button>
@@ -282,30 +304,31 @@ const ChatWidget = () => {
               </div>
             )}
             
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3 bg-gray-50 rounded-2xl p-2 border-2 border-gray-200 focus-within:border-purple-400 transition-colors">
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder={t('ask_about_dbt')}
-                className="flex-1 px-4 py-2 text-sm bg-gray-100 rounded-full focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="flex-1 px-3 py-3 text-sm bg-transparent rounded-xl focus:outline-none placeholder-gray-500"
                 disabled={loading}
+                style={{ fontSize: '16px' }}
               />
               <button
                 onClick={sendMessage}
                 disabled={loading}
-                className={`p-2 text-white rounded-full transition focus:outline-none focus:ring-2 focus:ring-purple-500 ${
+                className={`p-3 text-white rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500 touch-manipulation ${
                   loading 
                     ? 'bg-gray-400 cursor-not-allowed' 
-                    : 'bg-purple-600 hover:bg-purple-700'
+                    : 'bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 active:scale-95 shadow-lg'
                 }`}
                 aria-label="Send Message"
               >
                 {loading ? (
                   <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                 ) : (
-                  <svg className="w-5 h-5 rotate-90" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 rotate-90" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                   </svg>
                 )}
@@ -313,6 +336,7 @@ const ChatWidget = () => {
             </div>
           </div>
         </div>
+        </>
       )}
     </div>
   );

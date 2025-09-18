@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { AcademicCapIcon, ArrowUpIcon } from '@heroicons/react/24/solid';
 import {
   FaInstagram,
@@ -33,39 +34,39 @@ const Footer = () => {
           <h3 className="text-lg font-bold text-white mb-4">Quick Links</h3>
           <ul className="space-y-2">
             <li>
-              <a href="/"ame="hover:text-white transition-colors">
+              <Link to="/" className="hover:text-white transition-colors">
                 Home
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="about" className="hover:text-white transition-colors">
+              <Link to="/about" className="hover:text-white transition-colors">
                 About
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/students" className="hover:text-white transition-colors">
+              <Link to="/students" className="hover:text-white transition-colors">
                 Students
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/dbt-checker" className="hover:text-white transition-colors">
+              <Link to="/dbt-checker" className="hover:text-white transition-colors">
                 DBT Checker
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/compare" className="hover:text-white transition-colors">
+              <Link to="/compare" className="hover:text-white transition-colors">
                 Compare
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="resources" className="hover:text-white transition-colors">
+              <Link to="/resources" className="hover:text-white transition-colors">
                 Resources
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="Notifications" className="hover:text-white transition-colors">
+              <Link to="/notifications" className="hover:text-white transition-colors">
                 Notifications
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
