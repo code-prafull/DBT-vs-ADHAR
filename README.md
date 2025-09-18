@@ -23,7 +23,7 @@ A project that demonstrates and compares the functionalities of **Direct Benefit
 ---
 
 # DBT-vs-ADHAR 🚀
-
-![DEMO](https://adharcard-vs-dbt.netlify.app/)
+## 🔗 Live Demo
+👉 [View Portfolio](https://adharcard-vs-dbt.netlify.app/)  
 
 
