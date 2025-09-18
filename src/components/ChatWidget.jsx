@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
 // ✅ Gemini API configuration
-const API_KEY = "AIzaSyCUPH3BtQGeYGmCTOvvE5w35zPN4U3wYR8";
+const API_KEY = "YOUR_API_KEY_HERE";
 const API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent";
 
 // System prompt for DBT and scholarship context
